@@ -1,0 +1,95 @@
+DAY 9 - PROMPTS TO PASTE (Claude Code in VS Code)
+Claude's wording and commands change every run. That is normal. Check the result on GitHub.
+RCTCF = Role, Context, Task, Constraints, Format.
+Private repos only. No real company code, passwords or keys. Read each command before you approve it.
+
+===== 0. SETUP (VS Code terminal) =====
+git --version
+gh --version
+gh auth login
+gh auth status
+
+Choices in gh auth login: GitHub.com, HTTPS, Yes, Login with a web browser.
+Windows, no gh: winget install --id GitHub.cli  (then restart VS Code)
+
+===== 1. BUILD THE PROJECT =====
+Role: You are a careful DevOps engineer.
+Context: I am in an empty folder. The project is called shop-health. It checks whether a shop's web pages respond.
+Task: Create README.md, services.txt (one service per line: name,url) and health_check.sh. The script reads services.txt and prints OK or FAIL for each url using curl.
+Constraints: Plain bash, under 40 lines, no secrets. Use https://example.com for two services and https://example.com/missing for one that fails. Do not use git yet.
+Format: Create the files, run the script once, then explain in 3 lines what it does.
+
+===== 2. TEAM RULES (CLAUDE.md) =====
+Role: You are a tech lead setting team rules.
+Context: Project shop-health. A beginner team. GitHub hosts the code.
+Task: Create CLAUDE.md with our Git rules for Claude Code.
+Constraints: Maximum 12 lines. Rules: never push to main directly; branch names look like feature/short-name; commit messages are type(area): summary, then why; PR descriptions have Summary, Changes, Risk, How to test; never force push; ask me before any push or merge; never commit secrets; repos are private.
+Format: Short markdown file, bullet points.
+
+===== 3. CREATE THE PRIVATE REPO AND PUSH =====
+Role: You are a careful DevOps engineer who follows CLAUDE.md.
+Context: shop-health has files but no Git yet.
+Task: Set up Git on branch main, make the first commit, create a PRIVATE GitHub repo called shop-health with gh, and push.
+Constraints: Follow CLAUDE.md. Commit only the project files. Ask me before the push. Never make the repo public.
+Format: Say what each command does before you run it. End with the repo URL.
+
+===== 4. BRANCH AND MULTI-FILE CHANGE =====
+Role: You are a careful DevOps engineer who follows CLAUDE.md.
+Context: shop-health is on GitHub. main is up to date.
+Task: On a new branch feature/add-timeout: 1) add a 5 second timeout to the curl call and print the HTTP status code, 2) add one more service to services.txt, 3) update README.md to explain both.
+Constraints: One commit for each of the 3 changes. Do not touch main. Do not push yet. Run the script to prove it works.
+Format: End with git log --oneline.
+
+===== 5. OPEN THE PULL REQUEST (then: gh pr view --web) =====
+Role: You are a careful DevOps engineer who follows CLAUDE.md.
+Context: Branch feature/add-timeout has 3 commits.
+Task: Push the branch and open a pull request into main with gh.
+Constraints: Title and description follow CLAUDE.md: Summary, Changes, Risk, How to test. Do not merge. Ask me before the push.
+Format: Print the PR link.
+
+===== 6A. REVIEW THE PR =====
+Role: You are a strict code reviewer.
+Context: Open pull request on shop-health. Use gh pr diff to read it.
+Task: Review the pull request. List anything risky, missing or unclear.
+Constraints: Do not change any file and do not merge. If the PR looks fine, say so and why.
+Format: Verdict in one line, then a short list of findings, most important first.
+
+===== 6B. MERGE (only after you read the diff and agree) =====
+Role: You are a careful DevOps engineer who follows CLAUDE.md.
+Context: I have read the PR and I approve it.
+Task: Squash-merge the pull request with gh, delete the branch, switch to main and pull.
+Constraints: Only this one pull request. Do not force anything.
+Format: End with git log --oneline and the list of files in the folder.
+
+===== 7. RELEASE NOTES / CHANGELOG =====
+Role: You are a technical writer for a non-technical shop owner.
+Context: Repo shop-health. Use git log and the merged pull requests as your source.
+Task: Write release notes for version v0.1.0.
+Constraints: Use only what is in the history. Do not invent features. No jargon.
+Format: Sections What's new, Fixes, Known gaps. Maximum 10 lines. Save as CHANGELOG.md on a new branch docs/changelog and open a pull request. Ask me before you push.
+
+Optional after the changelog PR is merged: gh release create v0.1.0 --notes-file CHANGELOG.md
+
+===== 8A. MAKE A MESSY PRACTICE BRANCH =====
+Role: You are a Git practice coach.
+Context: shop-health on main, up to date.
+Task: Create a local branch practice/messy from main. Make 3 small commits that each add one line to README.md, with the messages: wip, fix typo, wip2.
+Constraints: Do not push. Do not touch main.
+Format: End with git log --oneline.
+
+===== 8B. SQUASH WITH A BACKUP =====
+Role: You are a Git expert who protects history.
+Context: Local branch practice/messy in shop-health has 3 commits named wip, fix typo and wip2. Nothing is pushed.
+Task: Show me git log --oneline. Make a backup branch first. Then squash the 3 commits into one commit with a proper message.
+Constraints: Do not touch main. Do not push. Explain each command before you run it.
+Format: Before and after git log --oneline, and the name of the backup branch.
+
+===== 8C. CHERRY-PICK (explain only) =====
+Role: You are a Git expert who protects history.
+Context: In shop-health, branch practice/messy has one commit that adds a line to README.md that I want on main. main also has other work I do not want to mix.
+Task: Explain cherry-pick in 2 sentences. Then show the commands to copy just that commit onto a new branch from main.
+Constraints: Only explain and list commands. Do not run anything until I say go.
+Format: Explanation, then numbered commands.
+
+===== TAKE-HOME =====
+Repeat the flow on a tiny idea of your own in a new private repo. Add the changelog PR. Bring your PR link and one thing you changed or rejected.

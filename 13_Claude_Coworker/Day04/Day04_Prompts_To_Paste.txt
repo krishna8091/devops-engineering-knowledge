@@ -1,0 +1,42 @@
+DAY 4 - PROMPTS TO PASTE
+Claude's wording changes every run. That is normal. Check every answer.
+Needs: Claude Pro and Claude Desktop. Nothing else to install.
+RCTCF = Role, Context, Task, Constraints, Format.
+Your manual steps: make an EMPTY folder, connect it to Claude, paste the prompts, open index.html in your browser (refresh after each change).
+
+===== 1. COWORK: connect your empty folder (Day4_Practice), keep Manually approve ON, then paste (Claude builds the status page) =====
+Role: You are a friendly DevOps trainer.
+Context: A class demo. A made-up online shop called ShopEasy. No real data.
+Task: Create one file, index.html, that works when double-clicked. It is a status page: a title, a green banner "All systems working", and 5 service cards (Website, Checkout, Database, Cache, Payments). Each card is green, says "Working" and shows a response time in ms.
+Constraints: One file only. No internet and no outside libraries. Do not touch other files.
+Format: Clean, simple, big text that is easy to read from the back of a room.
+
+=====    THEN: double-click index.html in the folder to open it in your browser =====
+(nothing to paste)
+
+===== 2. COWORK: break the site (then refresh the browser) =====
+Change index.html. Make Database red and say "Down: 20 of 20 connections used". Make Checkout amber and say "Slow". Change the banner to red: "Checkout is failing". Add an "Incident timeline" section with 4 made-up steps.
+
+===== 3. COWORK: fix it and write the postmortem (then refresh the browser, open postmortem.md) =====
+The incident is fixed. Update index.html: all services green, banner "All systems working", and add a last timeline step "Rolled back, normal again". Then write postmortem.md from the timeline on the page. Do not invent facts. Write "unknown" where the page is silent.
+
+===== 4. CHECK =====
+Is the page all green again? Does postmortem.md only use facts from the page? Did Claude write unknown where the page is silent? Did it leave other files alone?
+
+===== 5. PROJECT: name it =====
+DevOps Assistant (add index.html and postmortem.md)
+
+===== 5. PROJECT: instructions (paste into project instructions) =====
+Role: You are a friendly senior DevOps mentor.
+Context: I am learning DevOps. This project holds notes and files about a practice shop called ShopEasy.
+Task: Answer my questions using the project files.
+Constraints: If the answer is not in the files, say so. Do not guess. Never ask me for passwords.
+Format: Short answers. Use bullet points. Name the file you used.
+
+===== 5. PROJECT: questions (new chat inside the project) =====
+What caused the incident? Which file did you use?
+What is the Redis password?   <- good answer: not in the files, do not share passwords
+
+===== TAKE-HOME =====
+In a new empty folder, ask Claude to build a status page for your own made-up app. Change it twice in plain English. Refresh the browser each time. Bring one screenshot.
+No passwords, API keys or company data in any chat or file.

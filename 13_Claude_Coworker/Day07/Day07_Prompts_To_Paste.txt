@@ -1,0 +1,56 @@
+DAY 7 - PROMPTS TO PASTE
+Claude's wording changes every run. That is normal. Check every answer.
+Needs: Claude Pro, VS Code with the Claude Code extension, the unzipped practice folder server-hardening (all data is made up).
+RCTCF = Role, Context, Task, Constraints, Format.
+Setup: open the folder server-hardening in VS Code. Use PLAN mode to read, MANUAL mode when Claude creates files. Nothing runs on a server today.
+
+===== 1. EXPLAIN THE FILES =====
+Role: You are a patient Linux teacher.
+Context: shop-api.service is a systemd service file. crontab.txt is a cron schedule. Both are made up.
+Task: Explain each file line by line in simple words. Then tell me 3 things that look weak or risky.
+Constraints: Read only. Do not edit anything. No jargon without a one-line explanation.
+Format: A short list per file. Then the 3 risks as bullets.
+
+=====    CHECK =====
+Did Claude notice User=root, no Restart, the password in the file, the job that runs every minute?
+
+===== 2. GENERATE HARDENED FILES (check each diff, accept) =====
+Role: You are a careful Linux engineer.
+Context: shop-api.service and backup.sh are weak, made-up files. The API runs /opt/shop/api.py and needs only /var/lib/shop and /var/log/shop.
+Task: Create shop-api.hardened.service with safer settings. Create backup_safe.sh and one cron line for it, at 03:00 every day.
+Constraints: Do not change the original files. Do not run anything. No real passwords: use a placeholder. Backup file names include the date. Never delete other backups. Add a comment on each important line.
+Format: Two new files plus the cron line in a file called crontab.new. Then 5 bullets: what you changed and why.
+
+===== 2. THEN IN THE TERMINAL (checks typing, does not run) =====
+bash -n backup_safe.sh
+
+===== 2b. REVIEW CLAUDE'S OWN WORK =====
+Role: You are a strict reviewer who checks other people's work.
+Context: Review the files you just created: shop-api.hardened.service, backup_safe.sh and crontab.new.
+Task: Find any mistakes, risks or missing safety checks. Rate each finding High, Medium or Low.
+Constraints: Read only. Do not fix anything yet. Be specific: file, line, problem.
+Format: A table: file, line, problem, rating. Then the 3 fixes you would do first.
+
+===== 3. REVIEW FIREWALL, PORTS AND SSH =====
+Role: You are a cautious security engineer.
+Context: ufw-status.txt is the firewall, ports.txt shows which ports listen, and sshd_config.txt is the SSH setting. All made up. Port 3306 is the database, 6379 is Redis, 8080 is the app behind nginx.
+Task: Compare them with a basic hardening checklist. Say which ports should be open to the internet, which should not, and which SSH settings are weak.
+Constraints: Read only. Do not run anything. Never suggest a change that could lock me out of SSH without warning me first.
+Format: A table: item, current setting, risk, safer setting. Then the order I should change things in.
+
+=====    REAL SERVERS =====
+Keep a second SSH session open before any firewall or SSH change.
+
+===== 4. RUNBOOK TO SCRIPT (do not run it) =====
+Role: You are a careful DevOps engineer.
+Context: runbook.md lists the manual steps to restart shop-api. This is a practice server.
+Task: Turn it into a bash script, restart_shop_api.sh. It stops and prints a clear message if any check fails.
+Constraints: It must have a --dry-run option that only prints what it would do. Use set -e and quote all variables. Do not run it.
+Format: One script file with a comment above each step. Then 3 bullets on what could still go wrong.
+
+===== 4. THEN IN THE TERMINAL =====
+bash -n restart_shop_api.sh
+
+===== TAKE-HOME =====
+Ask Claude to write a systemd timer instead of the cron line, then review it with a second prompt. Bring one change you would not apply on a live server without testing, and why.
+No real passwords or company configs in any prompt or file.

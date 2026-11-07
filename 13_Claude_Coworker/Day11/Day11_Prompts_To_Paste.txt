@@ -1,0 +1,65 @@
+DAY 11 - PROMPTS TO PASTE (Claude Code in VS Code, inside the docker-practice folder)
+Short and plain on purpose. Claude's wording changes every run. Check the result with real commands.
+All data is made up, including the secrets. Never put real passwords in a Dockerfile or .env.
+
+===== 0. SETUP =====
+Unzip docker-practice.zip, start Docker Desktop, open the folder in VS Code.
+Terminal: docker --version   and   docker ps
+Before class (so downloads are ready):
+docker pull ubuntu:latest
+docker pull python:3.12-slim
+If port 5000 is busy, use 5001:5000 and open localhost:5001.
+
+===== 1. EXPLAIN THE BAD DOCKERFILE =====
+Explain this Dockerfile line by line in simple words.
+Then list everything wrong or risky about it, most serious first.
+Do not change any file.
+
+===== 2. BUILD THE BLOATED IMAGE (terminal) =====
+docker build -t shop-status:bloated .
+docker images
+docker run -d --name bloated -p 5000:5000 shop-status:bloated
+curl localhost:5000
+docker exec bloated id
+docker exec bloated ls -a /app
+docker rm -f bloated
+
+===== 3. CLAUDE FIXES IT =====
+Rename my Dockerfile to Dockerfile.bloated. Then write a new Dockerfile for the same app: small, multi-stage, and running as a non-root user.
+Also create a .dockerignore so .env and other junk stay out of the image.
+Explain each change in one line.
+
+===== 4A. BUILD THE LEAN IMAGE (terminal) =====
+docker build -t shop-status:lean .
+docker images
+docker run -d --name lean -p 5000:5000 shop-status:lean
+curl localhost:5000
+docker exec lean id
+docker exec lean ls -a /app
+docker rm -f lean
+
+===== 4B. CHECK THE NEW DOCKERFILE =====
+Check the new Dockerfile against this list and say PASS or FAIL for each:
+non-root user, no secrets, small base image, pinned version (no :latest), .dockerignore, healthcheck.
+Do not change anything.
+
+===== 5A. THE CONTAINER WILL NOT START (terminal; wait 3 seconds before ps -a) =====
+docker run -d --name oops -e PORT=abc shop-status:lean
+docker ps -a
+docker logs oops
+docker rm -f oops
+
+===== 5B. ASK CLAUDE (paste the logs) =====
+My container stopped right after I started it.
+Here are the logs:
+[paste the docker logs output here]
+What is wrong and how do I fix it? Do not change any file yet.
+
+===== DEBUG LOOP =====
+docker ps -a  ->  docker logs name  ->  ask Claude with the logs
+
+===== TAKE-HOME (Docker Compose, one service) =====
+Write a docker-compose.yml that builds this folder and runs the app on port 5000.
+Explain each line in simple words.
+
+Then: docker compose up   (stop with: docker compose down)

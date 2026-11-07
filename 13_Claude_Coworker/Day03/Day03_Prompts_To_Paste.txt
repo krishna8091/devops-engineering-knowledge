@@ -1,0 +1,108 @@
+DAY 3 - PROMPTS TO PASTE
+Use a NEW chat for each prompt. Claude's wording changes every run. That is normal.
+Free plan is enough. Nothing here is run on a server.
+RCTCF = Role, Context, Task, Constraints, Format. Every good prompt below uses it.
+
+IMPORTANT: Claude on the free chat only writes text (it cannot create folders or run anything) and cannot see your computer. In the good prompts, replace the text in [square brackets] with your own system.
+
+===== WARM-UP: ORDERING FOOD (bad, then good) =====
+Bad:
+Make me some food.
+
+Good:
+Role: You are a good home cook.
+Context: We are 4 people. One person does not eat onion.
+Task: Make a chicken biryani.
+Constraints: Medium spicy. No onion.
+Format: Give me the steps in 5 short points.
+
+===== PROMPT TEMPLATE =====
+Role: You are a ... (who Claude should be)
+Context: About me and my situation (Claude cannot see it, so tell it)
+Task: What I want
+Constraints: What Claude must NOT do, or must keep
+Format: How the answer should look
+
+===== IF YOU DO NOT KNOW YOUR SYSTEM =====
+I am a beginner and not sure of my operating system. Give the answer for Linux and tell me how to check which system I have.
+
+===== SAFETY EXAMPLE: BAD =====
+Clean up my computer.
+
+===== SAFETY EXAMPLE: GOOD =====
+Show me the 10 biggest files in my current folder. Only list them. Do not delete or change anything. Explain the command in simple words.
+
+######## HANDS-ON 1: BASH SCRIPT ########
+
+===== 1. BAD prompt (notice what Claude guesses) =====
+Write a backup script.
+
+===== 1. GOOD prompt (fill in your system) =====
+Role: You are a friendly Linux teacher.
+Context: I am a beginner. My computer is [your system, e.g. Ubuntu, Windows, Mac].
+Task: Write a small script that makes a backup copy of my folder called "projects".
+Constraints: Do not delete anything. Keep it short.
+Format: Show the script, then explain each line in simple words.
+
+######## HANDS-ON 2: YAML FILE ########
+
+===== 2. BAD prompt =====
+Write YAML for nginx.
+
+===== 2. GOOD prompt =====
+Role: You are a friendly Kubernetes teacher.
+Context: I am a beginner. I only want to read the file, not run it.
+Task: Write a YAML file that runs 2 copies of the nginx web server.
+Constraints: Use a fixed version number, not "latest". Add nothing extra.
+Format: Show the YAML, then explain each part in simple words.
+
+######## HANDS-ON 3: ERROR LOG ########
+
+===== 3. BAD prompt =====
+What is wrong here? Failed to pull image nginx:1.99.9
+
+===== 3. GOOD prompt (with XML tags) =====
+<task>Explain this error in simple words. Tell me the likely cause and how to fix it.</task>
+<error>
+Failed to pull image "nginx:1.99.9": manifest unknown
+Error: ImagePullBackOff
+</error>
+<constraints>Do not guess. Say if you are not sure.</constraints>
+
+===== 3b. SAME REQUEST WITHOUT TAGS (compare with the tagged one) =====
+Explain this error in simple words and tell me the likely cause and how to fix it. Failed to pull image "nginx:1.99.9": manifest unknown Error: ImagePullBackOff and do not guess
+
+######## TECHNIQUES ########
+
+===== FEW-SHOT =====
+Explain each error in plain English, and give a fix. Follow the two examples.
+
+Example 1
+Error: No space left on device
+Meaning: The disk is full.
+Fix: Remove files you do not need.
+
+Example 2
+Error: Permission denied
+Meaning: You are not allowed to do this.
+Fix: Check your user or ask for access.
+
+Now do this one:
+Error: Connection refused
+
+===== STEP BY STEP =====
+My CI pipeline passed yesterday and fails today. I only changed one setting. Give me the 3 most likely reasons, one by one, and one way to check each. Show your steps.
+
+===== EXPLAIN, READ-ONLY =====
+Explain this command line by line for a beginner. Do not change it.
+ls -l
+
+===== ASK AFTER EVERY ANSWER =====
+What could go wrong if I run this? What should I check first, and how can I undo it?
+
+===== TAKE-HOME =====
+For each of your 3 infra tasks from Day 2, write a BAD prompt and a GOOD prompt using the template. Run both and compare. Bring your best one to Day 4.
+No passwords or company data in any chat.
+
+===== TONIGHT =====
+Subscribe to Claude Pro (check the current price on claude.com/pricing). Install Claude Desktop and sign in.

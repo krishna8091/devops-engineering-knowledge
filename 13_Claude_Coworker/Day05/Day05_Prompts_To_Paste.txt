@@ -1,0 +1,34 @@
+DAY 5 - PROMPTS TO PASTE
+Claude's wording changes every run. That is normal. Check every answer.
+Needs: Claude Pro, VS Code 1.94+, the Claude Code extension, and the unzipped sample repo shopeasy-infra (all data is made up).
+RCTCF = Role, Context, Task, Constraints, Format.
+Before you paste: check the mode at the bottom of the prompt box. Start in PLAN.
+
+===== 1. EXPLORE, change nothing (Plan mode) =====
+Role: You are a careful senior DevOps engineer.
+Context: This is a small practice repo for a made-up shop. It has Terraform, Kubernetes, Docker, a shell script and a pipeline file.
+Task: Explain the repo structure in simple words. Then flag ONE improvement that matters most for security.
+Constraints: Read only. Do not edit, create or delete any file. Do not run any command.
+Format: One line per folder, then the improvement with the file name.
+
+=====    CHECK =====
+Did it list every folder? Is the improvement a real file? Open the file and confirm.
+
+===== 2. FIX ONE THING (read the plan, then the diff, then Accept or Reject) =====
+Task: Fix only the improvement you flagged. First show me your plan and wait.
+Constraints: Change only that one file. Do not run any command. Add a short comment that explains the change.
+Format: After the edit, summarise what changed in 3 bullets.
+
+===== 3. CLAUDE.md SAFETY RULES =====
+Create a CLAUDE.md file for this repo with these safety rules:
+1. Never run terraform apply, terraform destroy or kubectl apply.
+2. Always show a plan before editing any file.
+3. Never print or invent secrets.
+4. Explain each change in simple words.
+
+===== 4. IF TIME IS LEFT =====
+Explain scripts/backup.sh line by line in simple words. Then list what could go wrong when it runs. Do not edit anything.
+
+===== TAKE-HOME =====
+Explain a different file. Ask for a second improvement. Read the plan and the diff. Bring one fix you accepted and one you rejected, with your reason.
+No real secrets, passwords or company repos in any prompt or file.

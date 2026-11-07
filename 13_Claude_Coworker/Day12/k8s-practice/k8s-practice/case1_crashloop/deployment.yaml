@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-api
+  template:
+    metadata:
+      labels:
+        app: shop-api
+    spec:
+      containers:
+        - name: shop-api
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              if [ -z "$DB_HOST" ]; then
+                echo "Error: environment variable DB_HOST is not set"
+                exit 1
+              fi
+              echo "shop-api started, database at $DB_HOST"
+              sleep 3600

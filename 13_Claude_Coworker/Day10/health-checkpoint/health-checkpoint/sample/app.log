@@ -1,0 +1,25 @@
+2026-10-28 08:00:01 INFO  shop-api started on port 8080
+2026-10-28 08:00:05 INFO  GET /products 200 12ms
+2026-10-28 08:03:12 INFO  GET /cart 200 18ms
+2026-10-28 08:07:44 INFO  POST /checkout 200 41ms
+2026-10-28 08:15:20 WARN  Slow query: 1.8s on orders table
+2026-10-28 08:22:31 INFO  GET /products 200 11ms
+2026-10-28 08:31:09 ERROR Payment timeout for order 1017
+2026-10-28 08:31:40 INFO  GET /cart 200 15ms
+2026-10-28 08:44:02 INFO  POST /checkout 200 39ms
+2026-10-28 09:02:18 WARN  Disk usage high on /var/log
+2026-10-28 09:10:55 INFO  GET /products 200 10ms
+2026-10-28 09:18:27 ERROR Database connection refused
+2026-10-28 09:18:30 ERROR Database connection refused
+2026-10-28 09:18:41 INFO  Database reconnected
+2026-10-28 09:30:12 INFO  GET /cart 200 17ms
+2026-10-28 09:42:50 INFO  POST /checkout 200 44ms
+2026-10-28 10:05:33 WARN  Slow query: 2.1s on orders table
+2026-10-28 10:12:08 INFO  GET /products 200 12ms
+2026-10-28 10:26:47 ERROR Disk write failed on /var/log
+2026-10-28 10:26:49 INFO  Retrying log write
+2026-10-28 10:30:00 INFO  GET /products 200 11ms
+2026-10-28 10:41:15 INFO  GET /cart 200 16ms
+2026-10-28 10:55:21 INFO  POST /checkout 200 40ms
+2026-10-28 11:02:09 INFO  GET /products 200 10ms
+2026-10-28 11:15:36 INFO  Health check OK

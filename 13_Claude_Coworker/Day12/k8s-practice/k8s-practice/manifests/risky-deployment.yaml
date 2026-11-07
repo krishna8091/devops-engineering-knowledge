@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-web
+  template:
+    metadata:
+      labels:
+        app: shop-web
+    spec:
+      containers:
+        - name: shop-web
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_PASSWORD
+              value: "FAKE-changeme-123"
+          securityContext:
+            privileged: true

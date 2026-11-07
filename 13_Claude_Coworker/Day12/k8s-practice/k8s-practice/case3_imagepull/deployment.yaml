@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-cache
+  template:
+    metadata:
+      labels:
+        app: shop-cache
+    spec:
+      containers:
+        - name: shop-cache
+          image: busybox:1.36.99
+          command: ["sh", "-c", "echo cache running; sleep 3600"]

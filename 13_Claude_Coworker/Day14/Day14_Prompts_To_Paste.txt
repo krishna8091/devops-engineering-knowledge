@@ -1,0 +1,36 @@
+DAY 14 - PROMPTS TO PASTE (Claude Code in VS Code, inside the terraform-practice folder)
+Short and plain on purpose. Claude's wording changes every run. Check the evidence yourself.
+All data is made up. Never paste AWS keys, secrets or a real state file.
+
+===== 0. SETUP =====
+Unzip terraform-practice.zip, open the folder in VS Code, open Claude Code (Manual mode).
+No Terraform or AWS account needed.
+
+===== 1. CLAUDE WRITES A MODULE =====
+Write a small reusable Terraform module for an AWS S3 bucket.
+Inputs: bucket name, versioning on or off, and tags. Outputs: the bucket ARN and name.
+Also write a main.tf that uses the module to create two buckets.
+Explain each file in simple words.
+
+===== 2. REVIEW A PLAN FOR RISK =====
+Read plan_case/plan.txt. It is a terraform plan.
+List every risky change, most serious first, with one line on why.
+Then tell me: is it safe to apply? Do not change any file.
+
+===== 3. EXPLAIN THE DRIFT =====
+Read the files in the drift_case folder.
+In simple words: 1) what changed outside Terraform, 2) which line proves it,
+3) what will happen if I apply, and 4) what are my safe choices.
+
+===== 4. REFACTOR ONE BIG FILE =====
+Refactor monolith/main.tf into a module.
+Put the repeated bucket code in a module and call it twice. Keep the same resources.
+These buckets already exist, so make sure Terraform does not destroy and recreate them.
+Write the new files in a new folder called refactored. Do not edit the original.
+
+===== PLAN HABIT =====
+terraform plan -> read the summary -> check every - and -/+ -> ask Claude -> YOU decide -> then apply
+
+===== TAKE-HOME =====
+Add a variable for the AWS region to the module setup and explain
+how I would use a different value for a test and a production environment.

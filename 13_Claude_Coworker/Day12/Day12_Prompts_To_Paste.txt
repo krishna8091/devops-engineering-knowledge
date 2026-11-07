@@ -1,0 +1,37 @@
+DAY 12 - PROMPTS TO PASTE (Claude Code in VS Code, inside the k8s-practice folder)
+Short and plain on purpose. Claude's wording changes every run. Check the evidence line yourself.
+All data is made up. Never paste real secrets or company logs.
+
+===== 0. SETUP =====
+Unzip k8s-practice.zip, open the folder in VS Code, read README.txt.
+No cluster needed. Optional: a throwaway cluster only (Docker Desktop, minikube, kind).
+
+===== 1. CLAUDE WRITES THE MANIFESTS =====
+Write a Kubernetes Deployment and a Service for a web app.
+Image: nginxinc/nginx-unprivileged:1.27 (it listens on port 8080). 2 replicas. The Service listens on port 80.
+Add resource requests and limits and a readiness probe. Explain each part in simple words.
+
+===== 2. REVIEW A RISKY MANIFEST =====
+Review manifests/risky-deployment.yaml.
+List every risky or missing setting, most serious first, with one line on why.
+Then write a fixed copy as manifests/fixed-deployment.yaml. Do not edit the original.
+
+===== 3A. CRASHLOOPBACKOFF: DIAGNOSE =====
+A pod is failing. Read the files in the case1_crashloop folder.
+Tell me in simple words: 1) what is wrong, 2) the evidence line, 3) the fix.
+Do not change any file yet.
+
+===== 3B. CRASHLOOPBACKOFF: FIX =====
+Now write the fixed manifest as case1_crashloop/deployment-fixed.yaml.
+Change only what is needed and tell me what you changed.
+
+===== 4. TWO MORE CASES (run for case2_pending, then case3_imagepull) =====
+Do the same for the case2_pending folder.
+What is wrong, what is the evidence line, and what is the fix?
+
+===== DEBUG LOOP =====
+kubectl get pods  ->  kubectl describe pod NAME  ->  kubectl logs NAME  ->  ask Claude  ->  you check the evidence line
+
+===== TAKE-HOME (Helm values) =====
+Write a values.yaml for a Helm chart of this app: image, replicas, port and resources.
+Explain each key in one line.

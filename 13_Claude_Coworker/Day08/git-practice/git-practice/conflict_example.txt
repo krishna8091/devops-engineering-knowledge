@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-api
+spec:
+<<<<<<< HEAD
+  replicas: 3
+=======
+  replicas: 5
+>>>>>>> feature/high-traffic
+  template:
+    spec:
+      containers:
+        - name: shop-api
+          image: shopeasy/shop-api:latest
+          env:
+            - name: DB_PASSWORD
+              value: "FAKE-changeme-123"
+          resources:
+            limits:
+              memory: "512Mi"

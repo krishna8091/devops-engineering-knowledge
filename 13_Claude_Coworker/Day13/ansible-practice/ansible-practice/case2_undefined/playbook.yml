@@ -1,0 +1,10 @@
+- name: Write the home page
+  hosts: web
+  become: true
+  vars:
+    shop_name: "My Shop"
+  tasks:
+    - name: Write the home page
+      ansible.builtin.copy:
+        content: "Welcome to {{ shop_nmae }}"
+        dest: /tmp/index.html

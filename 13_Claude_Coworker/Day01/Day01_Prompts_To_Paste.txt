@@ -1,0 +1,40 @@
+DAY 1 - PROMPTS TO COPY AND PASTE (keep this open next to the slides)
+Claude's wording changes every run. That is normal.
+A good prompt has 4 parts: Role, Context, Task, Format.
+
+--- 1A. Weak prompt (type this first) ---
+What is cloud computing?
+
+--- 1B. Good prompt (start a NEW chat, paste this) ---
+You are a friendly teacher. I am new to IT. Explain what cloud computing is using an everyday example, like renting a house. Answer in 5 short lines.
+
+--- 2. Improve the answer with follow-ups ---
+First prompt:
+Write a short, polite email to my manager asking for leave this Friday for a family function. Keep it under 80 words.
+
+Then type, one by one:
+Make it more formal.
+Now make it 3 lines only.
+Add that I will finish my work by Thursday.
+
+--- 3. Ask, read, verify (replace [your city] with your city) ---
+Tell me 3 facts about my city, [your city].
+
+Check one fact on Google or Wikipedia. Then ask Claude:
+Which of these facts should I double-check, and where?
+
+--- OPTIONAL: if you already use Linux ---
+You are a senior Linux engineer helping a junior colleague. Explain this command piece by piece and tell me what output to expect. Keep it under 150 words.
+
+du -sh /var/log/* | sort -rh | head -5
+
+Then verify in a terminal (or search "du man page"):
+man du
+du --help
+(press q to leave the man page)
+
+--- TAKE-HOME ---
+Pick one everyday task, like a weekly study plan. Ask with a weak prompt, then a good one. Compare.
+Ask Claude 3 facts you already know. Note anything wrong or missing.
+List 2 tasks where AI saves you time and 2 where you would not trust it yet.
+No passwords, API keys or company data in any chat.

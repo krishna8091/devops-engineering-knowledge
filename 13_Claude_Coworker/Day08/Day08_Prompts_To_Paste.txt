@@ -1,0 +1,64 @@
+DAY 8 - PROMPTS TO PASTE
+Claude's wording changes every run. That is normal. Check every answer.
+Needs: Claude (chat), VS Code with a terminal (Windows: Git Bash), the unzipped git-practice folder. All data is made up.
+RCTCF = Role, Context, Task, Constraints, Format.
+Never paste real passwords, keys or company diffs into Claude.
+
+===== 0. SETUP (in the terminal, inside the git-practice folder) =====
+bash setup_repo.sh
+cd shop-infra-practice
+
+===== 1. LOOK AROUND (these only look) =====
+git status
+git log --oneline --all
+git diff
+git diff > my.diff
+
+===== 2. MESSY DIFF TO MESSAGE, PR AND CHECKLIST (paste the output of git diff where it says) =====
+Role: You are a senior DevOps engineer who reviews infrastructure changes.
+Context: Below is a git diff from a made-up shop's infrastructure repo. It mixes several unrelated changes.
+Task: 1) Write a commit message. 2) Write a pull request description. 3) Write a review checklist. 4) List the risky changes.
+Constraints: Use only what is in the diff. Do not invent reasons. If the changes are unrelated, say they should be split. Never repeat a secret in full.
+Format: Commit: first line under 60 characters, then 2 to 3 lines on why. PR: Summary, Changes, Risk, How to test. Checklist: 6 to 8 checkboxes. Risks: table of file, change, why.
+
+[paste the output of git diff here]
+
+=====    CHECK =====
+Did Claude flag: SSH open to 0.0.0.0/0, :latest, the password, set -e removed, rm -rf with a variable? Did it say to split the commit?
+
+===== 2b. THEN COMMIT (use the first line of Claude's message) =====
+git add .
+git commit -m "first line of Claude's message"
+
+===== 3A. MAKE A CONFLICT (in the terminal) =====
+git merge feature/high-traffic
+git status
+
+If Git says local changes would be overwritten, run:  git add .  then  git commit -m "WIP"  and merge again.
+
+===== 3B. EXPLAIN THE CONFLICT (paste the whole k8s/deployment.yaml where it says) =====
+Role: You are a patient senior engineer.
+Context: I have a merge conflict in k8s/deployment.yaml. Branch main set replicas to 3. Branch feature/high-traffic set replicas to 5 for a sale. The file is below.
+Task: Explain the conflict in simple words. Give 2 options to resolve it, say which you recommend, and what I should ask my teammate first.
+Constraints: Do not pick a winner without saying why. Under 150 words plus the final file.
+Format: Explanation, 2 options, recommendation, question to ask, final file.
+
+[paste the conflicted file here]
+
+===== 3C. RESOLVE =====
+In VS Code choose Accept Current, Accept Incoming or Accept Both above the conflict. Then:
+git add k8s/deployment.yaml
+git commit
+
+Stuck? git merge --abort
+
+===== 4. BRANCHING ADVICE (optional, a good take-home) =====
+Role: You are a Git workflow advisor.
+Context: A team of 6 engineers. One Terraform repo and one Kubernetes repo. Deploys to staging and production, about twice a week. A small CI pipeline.
+Task: Recommend trunk-based development or GitFlow, and say why.
+Constraints: Maximum 5 bullets. Say what would change your mind. Do not assume tools we do not have.
+Format: One recommendation line, 5 bullets, one line: "What would change my mind".
+
+===== TAKE-HOME =====
+Ask Claude prompt 4 for your own team. Do the conflict again and keep the other side. Bring one risk you agree with and one you do not.
+No real company diffs, passwords or keys in any prompt.

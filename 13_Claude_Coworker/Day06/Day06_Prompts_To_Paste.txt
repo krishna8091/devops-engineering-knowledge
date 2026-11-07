@@ -1,0 +1,65 @@
+DAY 6 - PROMPTS TO PASTE
+Claude's wording changes every run. That is normal. Check every answer.
+Needs: Claude Pro, VS Code with the Claude Code extension (Day 5), the unzipped practice folder server-triage (all data is made up).
+RCTCF = Role, Context, Task, Constraints, Format.
+Setup: open the folder server-triage in VS Code, set Claude to PLAN mode, open the terminal (Ctrl + backtick). Windows: choose Git Bash in the terminal.
+NEVER run cleanup.sh.
+
+===== 1A. IN THE TERMINAL (you run these) =====
+ls
+wc -l app.log
+tail -5 app.log
+grep ERROR app.log | head -5
+
+===== 1B. IN CLAUDE: explain a command =====
+Explain this command in simple words, part by part.
+Do not run it.
+
+grep ERROR app.log | cut -d' ' -f4- | sort | uniq -c | sort -rn | head -3
+
+===== 1C. IN THE TERMINAL: run the long command yourself =====
+grep ERROR app.log | cut -d' ' -f4- | sort | uniq -c | sort -rn | head -3
+
+===== 2. FIND THE ROOT CAUSE (syllabus activity) =====
+Role: You are a careful Linux troubleshooter.
+Context: A made-up web server started returning errors at 14:20. The files are app.log and syslog.txt in this folder.
+Task: Find the most likely root cause. Then give the next command I should run to check it.
+Constraints: Use only what is in the files. Say "unknown" if the logs are silent. Do not run anything.
+Format: Root cause in 2 lines, then 3 evidence lines (file and what it shows), then the next command.
+
+=====    CHECK =====
+Find each line Claude quotes in app.log or syslog.txt. Run the next command only if it is read-only.
+
+===== 3. WRITE A SAFE SCRIPT (read the plan, check the diff, accept) =====
+Role: You are a Linux engineer who writes simple, safe scripts.
+Context: app.log is a made-up server log. Each line starts with a date and time, then the level (INFO, WARN, ERROR), then the message.
+Task: Write log_summary.sh. It takes a log file name and prints: the number of lines, the number of ERROR lines, and the 3 most common ERROR messages.
+Constraints: Read-only commands only (grep, cut, sort, uniq, wc, head). Do not delete or change any file. Add a short comment above each line.
+Format: One script file. Then explain each line in one short sentence.
+
+===== 3. THEN IN THE TERMINAL =====
+bash log_summary.sh app.log
+
+===== 3. THEN ASK CLAUDE =====
+What could go wrong if I run log_summary.sh on production? Is anything in it unsafe?
+
+===== 4. QUICK TRIAGE =====
+Role: You are a careful Linux troubleshooter.
+Context: Same server. The saved checks are df.txt, free.txt and top.txt.
+Task: Is CPU, memory or disk the problem? Give one line for each, then the top priority.
+Constraints: Use only these files. Read only. Do not run anything.
+Format: Three lines (CPU, Memory, Disk), then "Top priority:" and one sentence.
+
+===== 5. REVIEW THE DANGEROUS SCRIPT =====
+Role: You are a cautious senior Linux engineer.
+Context: cleanup.sh was written by a teammate to free disk space on a production web server. Do not run it.
+Task: Review it line by line. Rate each command Safe, Risky or Dangerous and explain why in simple words.
+Constraints: Read only. Do not run or edit the script.
+Format: A table: line, command, rating, what could go wrong. Then a safer way to free the space.
+
+===== 5. THEN ASK =====
+Give me a safer, step by step way to free disk space on this server. Start with read-only checks. Tell me what to back up first.
+
+===== TAKE-HOME =====
+Ask Claude to find the second-biggest problem in app.log and explain it. Bring one command you would NOT run on production, and why.
+No real logs, passwords or company data in any prompt.

@@ -1,0 +1,41 @@
+$ kubectl describe pod shop-cache-6f8c7d9b4-q7w5r
+Name:             shop-cache-6f8c7d9b4-q7w5r
+Namespace:        default
+Node:             node-1/192.168.49.2
+Labels:           app=shop-cache
+                  pod-template-hash=6f8c7d9b4
+Status:           Pending
+IP:               10.244.0.21
+Controlled By:    ReplicaSet/shop-cache-6f8c7d9b4
+Containers:
+  shop-cache:
+    Container ID:
+    Image:         busybox:1.36.99
+    Image ID:
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo cache running; sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  3m                 default-scheduler  Successfully assigned default/shop-cache-6f8c7d9b4-q7w5r to node-1
+  Normal   Pulling    93s (x4 over 3m)   kubelet            Pulling image "busybox:1.36.99"
+  Warning  Failed     91s (x4 over 3m)   kubelet            Failed to pull image "busybox:1.36.99": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/busybox:1.36.99": failed to resolve reference "docker.io/library/busybox:1.36.99": docker.io/library/busybox:1.36.99: not found
+  Warning  Failed     91s (x4 over 3m)   kubelet            Error: ErrImagePull
+  Normal   BackOff    7s (x12 over 3m)   kubelet            Back-off pulling image "busybox:1.36.99"
+  Warning  Failed     7s (x12 over 3m)   kubelet            Error: ImagePullBackOff

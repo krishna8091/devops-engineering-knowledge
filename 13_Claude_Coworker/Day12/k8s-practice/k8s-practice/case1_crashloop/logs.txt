@@ -1,0 +1,2 @@
+$ kubectl logs shop-api-7c9d8b6f5d-x2k9q
+Error: environment variable DB_HOST is not set

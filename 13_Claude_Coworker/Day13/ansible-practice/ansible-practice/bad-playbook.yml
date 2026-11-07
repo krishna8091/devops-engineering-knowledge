@@ -1,0 +1,15 @@
+# A deliberately bad playbook (all data is made up)
+- hosts: web
+  become: true
+  vars:
+    admin_password: "FAKE-changeme-123"
+  tasks:
+    - shell: apt-get update && apt-get install -y nginx
+
+    - shell: echo "Welcome to my shop" > /var/www/html/index.html
+
+    - shell: chmod -R 777 /var/www/html
+
+    - command: service nginx restart
+
+    - shell: echo "admin password is {{ admin_password }}" >> /tmp/setup.log

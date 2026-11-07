@@ -1,0 +1,49 @@
+DAY 15 - PROMPTS TO PASTE (Claude Code in VS Code, inside the shop-checkpoint folder)
+Short and plain on purpose. Claude's wording changes every run. Name the evidence for every file.
+All data is made up. Never paste keys or secrets.
+
+===== 0. SETUP =====
+Unzip shop-checkpoint.zip, open the folder in VS Code, open Claude Code (Manual mode).
+Docker Desktop is optional (build and run only). No cluster, no AWS account.
+
+===== 1. CLAUDE WRITES THE DOCKERFILE =====
+Write a Dockerfile for this app.
+Keep the image small. Run as a non-root user with ID 10001. Do not copy secrets.
+Also write a .dockerignore.
+
+===== 1B. BUILD AND PROVE IT (terminal, optional; if port 5000 is busy use 5001:5000) =====
+docker build -t shop-status:1.0 .
+docker run -d --name shop -p 5000:5000 shop-status:1.0
+curl localhost:5000
+docker exec shop id
+docker exec shop ls -a /app
+docker rm -f shop
+
+===== 2. CLAUDE WRITES THE KUBERNETES FILES =====
+Write a Kubernetes Deployment and Service for this app in a folder called k8s.
+Image shop-status:1.0, port 5000, 2 replicas. The Service listens on port 80.
+Add requests and limits, a readiness probe on /health, and run as user 10001 (non-root).
+
+===== 2B. REVIEW =====
+Review the files in the k8s folder.
+Check: pinned image tag, requests and limits, probes, non-root, no secrets, more than 1 replica.
+Say pass or fail for each, with one line on why.
+
+===== 3. CLAUDE WRITES A TERRAFORM MODULE =====
+Write a small Terraform module in a folder called terraform for an AWS ECR repository
+that will hold this app's image.
+Inputs: name, scan on push, tags. Output: the repository URL. Image tags must not be changeable.
+
+===== 4. REVIEW A TEAMMATE'S TERRAFORM =====
+Review teammate/ecr.tf and teammate/plan.txt.
+List every risk, most serious first, with one line on why. Is it safe to apply?
+Do not change any file.
+
+===== 5. PROMPT LIBRARY =====
+Help me fill in prompt-library-template.md using the prompts we used today.
+For each tool keep my prompt short and add one thing I always check.
+
+===== EVIDENCE =====
+Docker: size, docker exec shop id, no .env
+Kubernetes: six-point checklist
+Terraform: the plan, every destroy and open permission

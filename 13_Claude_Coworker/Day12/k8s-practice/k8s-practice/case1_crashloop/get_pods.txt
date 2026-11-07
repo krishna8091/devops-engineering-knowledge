@@ -1,0 +1,3 @@
+$ kubectl get pods
+NAME                        READY   STATUS             RESTARTS      AGE
+shop-api-7c9d8b6f5d-x2k9q   0/1     CrashLoopBackOff   5 (92s ago)   4m10s

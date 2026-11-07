@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-worker
+  template:
+    metadata:
+      labels:
+        app: shop-worker
+    spec:
+      containers:
+        - name: shop-worker
+          image: busybox:1.36
+          command: ["sh", "-c", "echo worker running; sleep 3600"]
+          resources:
+            requests:
+              memory: "64Gi"
+              cpu: "250m"

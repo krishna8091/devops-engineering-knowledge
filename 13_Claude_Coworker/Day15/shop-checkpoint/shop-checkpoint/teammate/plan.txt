@@ -1,0 +1,48 @@
+$ terraform plan
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_ecr_repository.shop will be created
+  + resource "aws_ecr_repository" "shop" {
+      + arn                  = (known after apply)
+      + force_delete         = true
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "shop-status"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+
+      + image_scanning_configuration {
+          + scan_on_push = false
+        }
+    }
+
+  # aws_ecr_repository_policy.shop will be created
+  + resource "aws_ecr_repository_policy" "shop" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = [
+                          + "ecr:GetDownloadUrlForLayer",
+                          + "ecr:BatchGetImage",
+                          + "ecr:PutImage",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = "*"
+                      + Sid       = "AllowPull"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + registry_id = (known after apply)
+      + repository  = "shop-status"
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.

@@ -1,0 +1,54 @@
+diff --git a/README.md b/README.md
+index e4861fc..db61c7b 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,2 @@
+ # shop-infra-practice
+-Made-up infrastructure files for a Git practice session.
++Made-up infrastructure files for a Git practice session (draft).
+diff --git a/k8s/deployment.yaml b/k8s/deployment.yaml
+index 0a0cd1d..7cf88d3 100644
+--- a/k8s/deployment.yaml
++++ b/k8s/deployment.yaml
+@@ -8,7 +8,10 @@ spec:
+     spec:
+       containers:
+         - name: shop-api
+-          image: shopeasy/shop-api:1.4.2
++          image: shopeasy/shop-api:latest
++          env:
++            - name: DB_PASSWORD
++              value: "FAKE-changeme-123"
+           resources:
+             limits:
+               memory: "256Mi"
+diff --git a/scripts/backup.sh b/scripts/backup.sh
+index 50901b7..c8a775f 100644
+--- a/scripts/backup.sh
++++ b/scripts/backup.sh
+@@ -1,4 +1,4 @@
+ #!/bin/bash
+-set -e
+ tar czf "/backups/shop-$(date +%F).tar.gz" /var/lib/shop
+ echo "backup done"
++rm -rf /backups/$1
+diff --git a/terraform/main.tf b/terraform/main.tf
+index b4f1be1..b086e68 100644
+--- a/terraform/main.tf
++++ b/terraform/main.tf
+@@ -11,5 +11,14 @@ resource "aws_security_group" "web" {
+ 
+ resource "aws_instance" "app" {
+   ami           = "ami-00000000"
+-  instance_type = "t3.small"
++  instance_type = "t3.large"
++}
++
++resource "aws_security_group_rule" "ssh" {
++  type              = "ingress"
++  from_port         = 22
++  to_port           = 22
++  protocol          = "tcp"
++  cidr_blocks       = ["0.0.0.0/0"]
++  security_group_id = aws_security_group.web.id
+ }

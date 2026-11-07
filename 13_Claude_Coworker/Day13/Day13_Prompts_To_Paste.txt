@@ -1,0 +1,58 @@
+DAY 13 - PROMPTS TO PASTE (Claude Code in VS Code, inside the ansible-practice folder)
+Short and plain on purpose. Claude's wording changes every run. Check the evidence yourself.
+All data is made up. Never paste real passwords or server details.
+
+===== 0. SETUP (terminal in VS Code) =====
+docker run -it --rm -v "$PWD":/work -w /work ubuntu:24.04 bash
+apt-get update && apt-get install -y ansible curl
+ansible --version
+(PowerShell: use ${PWD} instead of $PWD.  Type exit to leave.)
+
+===== 1A. RUN THE BAD PLAYBOOK TWICE (container) =====
+ansible-playbook bad-playbook.yml
+ansible-playbook bad-playbook.yml
+
+===== 1B. REVIEW IT =====
+Review bad-playbook.yml.
+List every risky or poor practice, most serious first, with one line on why.
+Then write a fixed copy as fixed-playbook.yml. Do not edit the original.
+
+===== 2. CLAUDE WRITES A ROLE =====
+Create an Ansible role called nginx in roles/nginx.
+It should install nginx, write a site config and a home page from templates, and make sure nginx is running.
+Use modules, not shell. Put the port, web root and welcome message in defaults/main.yml.
+Also create site.yml that runs the role on the web group.
+
+===== 3. RUN TWICE, THEN CHANGE A VARIABLE (container) =====
+ansible-playbook site.yml --syntax-check
+ansible-playbook site.yml
+ansible-playbook site.yml
+curl localhost
+ansible-playbook site.yml --check -e "nginx_message='Hello class'"
+curl localhost
+ansible-playbook site.yml -e "nginx_message='Hello class'"
+curl localhost
+
+===== 4A. FAILED RUN: DIAGNOSE =====
+A playbook run failed. Read the files in the case1_typo folder.
+Tell me in simple words: 1) what is wrong, 2) the evidence line, 3) the fix.
+Do not change any file yet.
+
+===== 4B. FAILED RUN: FIX =====
+Now fix playbook.yml in the case1_typo folder.
+Change only what is needed and tell me what you changed.
+
+===== 4C. TWO MORE CASES (case2_undefined, then case3_yaml) =====
+Do the same for the case2_undefined folder.
+What is wrong, what is the evidence line, and what is the fix?
+
+===== DEBUG LOOP =====
+TASK name -> fatal message -> line and column -> ask Claude -> you check the line
+
+===== TAKE-HOME 1 =====
+Add a task to the nginx role that creates /var/www/html/health.html containing the text OK.
+Use a module, not shell. Keep it idempotent.
+
+===== TAKE-HOME 2 =====
+Explain in simple words how I would use this same role on two real servers.
+Show an inventory.ini with a group called web. No passwords in any file.
